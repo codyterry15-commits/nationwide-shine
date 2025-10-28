@@ -1,147 +1,60 @@
 import React, { useState } from "react";
-export default function NationwideShineApp() {
-  const [route, setRoute] = useState("home");
-  const [quoteStatus, setQuoteStatus] = useState(null);
-  const [cleanerStatus, setCleanerStatus] = useState(null);
-
- return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-gray-800 text-gray-100 font-sans">
-
-      <Header onNavigate={setRoute} />
-
-      <main className="max-w-6xl mx-auto p-6">
-        {route === "home" && <Home onGetQuote={() => setRoute("quote")} />}
-        {route === "services" && <Services />}
-        {route === "quote" && (
-          <QuoteForm
-            onSuccess={() => {
-              setQuoteStatus("submitted");
-              setRoute("thankyou");
-            }}
-          />
-        )}
-        {route === "for-cleaners" && (
-          <CleanerForm onSuccess={() => setCleanerStatus("submitted")} />
-        )}
-        {route === "about" && <About />}
-        {route === "contact" && <Contact />}
-        {route === "thankyou" && <ThankYou />}
-      </main>
-
-      <Footer onNavigate={setRoute} />
-    </div>
-  );
-}
 
 /* --------------------------- HEADER --------------------------- */
 function Header({ onNavigate }) {
   return (
-    <header className="flex items-center justify-between py-6 border-b border-gray-700 bg-black/80 backdrop-blur-md px-6 md:px-12">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 bg-gold rounded-full flex items-center justify-center text-black font-bold shadow-lg">
-          NS
-        </div>
-        <div>
-          <h1 className="text-2xl font-semibold text-gold">Nationwide Shine</h1>
-          <p className="text-sm text-gray-400">
-            Luxury Cleaning. Local Hands.
-          </p>
-        </div>
-      </div>
-
-      <nav className="flex items-center gap-4 text-gray-300 text-sm">
-        <NavLink onClick={() => onNavigate("home")}>Home</NavLink>
-        <NavLink onClick={() => onNavigate("services")}>Services</NavLink>
-        <NavLink onClick={() => onNavigate("quote")}>Get a Quote</NavLink>
-        <NavLink onClick={() => onNavigate("for-cleaners")}>For Cleaners</NavLink>
-        <NavLink onClick={() => onNavigate("about")}>About</NavLink>
-        <button
-          onClick={() => onNavigate("contact")}
-          className="bg-gold text-black px-4 py-2 rounded-md font-semibold hover:bg-gold-dark transition"
+    <header className="bg-black/90 text-yellow-400 p-4 sticky top-0 z-50 shadow-lg">
+      <div className="max-w-6xl mx-auto flex justify-between items-center">
+        <h1
+          onClick={() => onNavigate("home")}
+          className="text-2xl font-extrabold tracking-wider cursor-pointer"
         >
-          Contact
-        </button>
-      </nav>
+          Nationwide Shine
+        </h1>
+        <nav className="space-x-6 text-sm md:text-base">
+          <button onClick={() => onNavigate("home")} className="hover:text-yellow-300">
+            Home
+          </button>
+          <button onClick={() => onNavigate("quote")} className="hover:text-yellow-300">
+            Get a Quote
+          </button>
+          <button onClick={() => onNavigate("apply")} className="hover:text-yellow-300">
+            Join Our Team
+          </button>
+          <button onClick={() => onNavigate("about")} className="hover:text-yellow-300">
+            About
+          </button>
+        </nav>
+      </div>
     </header>
   );
 }
 
-function NavLink({ children, onClick }) {
+/* --------------------------- HERO --------------------------- */
+function Hero({ onNavigate }) {
   return (
-    <button
-      onClick={onClick}
-      className="hover:text-gold transition-colors duration-150"
-    >
-      {children}
-    </button>
-  );
-}
-
-/* --------------------------- HOME --------------------------- */
-function Home({ onGetQuote }) {
-  return (
-    <section className="relative rounded-2xl overflow-hidden mt-8">
-      {/* Background with gradient + image overlay */}
-      <div
-        className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-95"
-      />
-      <div
-        className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-20"
-      />
-
-      {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-8 py-20 text-center text-gray-100">
-        <h2 className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-600 bg-clip-text text-transparent animate-pulse">
-          Luxury Cleaning, Coast to Coast ✨
+    <section className="text-center py-24 bg-gradient-to-b from-black via-gray-900 to-gray-800 text-gray-100">
+      <div className="max-w-3xl mx-auto px-6">
+        <h2 className="text-5xl font-extrabold mb-6 text-yellow-400">
+          Luxury Cleaning. Local Hands.
         </h2>
-        <p className="mt-6 text-lg text-gray-300 max-w-2xl mx-auto">
-          Nationwide Shine brings 5-star cleaning to homes, offices, and Airbnbs —
-          combining local care with a luxury touch.
+        <p className="text-gray-300 text-lg mb-10">
+          We provide high-end residential and commercial cleaning with precision, professionalism, and pride.
         </p>
-
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
-            onClick={onGetQuote}
-            className="px-8 py-4 bg-gold text-black text-lg font-semibold rounded-full hover:bg-yellow-500 transition shadow-lg"
+            onClick={() => onNavigate("quote")}
+            className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-3 rounded-lg transition"
           >
-            Get Your Free Quote
+            Get a Free Quote
           </button>
-          <button className="px-8 py-4 border border-gold text-gold text-lg rounded-full hover:bg-gold hover:text-black transition">
-            Learn More
+          <button
+            onClick={() => onNavigate("apply")}
+            className="border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black px-6 py-3 rounded-lg transition"
+          >
+            Join Our Team
           </button>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* --------------------------- SERVICES --------------------------- */
-function Services() {
-  const services = [
-    { title: "Residential Cleaning", desc: "Standard, deep, and move-in/out cleans" },
-    { title: "Office & Commercial", desc: "Flexible teams for recurring or one-off jobs" },
-    { title: "Airbnb Turnovers", desc: "Fast turnarounds + linen service add-ons" },
-    { title: "Add-Ons", desc: "Oven clean, fridge clean, carpet shampoo, interior windows" },
-  ];
-
-  return (
-    <section className="rounded-2xl p-8 bg-gray-900 shadow border border-gray-700 mt-8">
-      <h3 className="text-2xl font-bold text-gold mb-6">Services</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {services.map((s) => (
-          <div key={s.title} className="p-4 border border-gray-700 rounded-lg bg-gray-800">
-            <h4 className="font-semibold text-gold">{s.title}</h4>
-            <p className="text-sm text-gray-300 mt-2">{s.desc}</p>
-            <div className="mt-3">
-              <button
-                className="text-sm text-gold underline hover:text-gold-light"
-                onClick={() => alert("Request a quote for " + s.title)}
-              >
-                Request Quote
-              </button>
-            </div>
-          </div>
-        ))}
       </div>
     </section>
   );
@@ -149,287 +62,171 @@ function Services() {
 
 /* --------------------------- QUOTE FORM --------------------------- */
 function QuoteForm({ onSuccess }) {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    propertyType: "home",
-    size: "",
-    zip: "",
-    date: "",
-    notes: "",
-  });
+  const [status, setStatus] = useState("");
 
-  function update(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
-  function submitQuote(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Quote request", form);
-    onSuccess();
+    const form = e.target;
+    const data = new FormData(form);
+
+    const res = await fetch("https://formspree.io/f/mqagpegn", {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" },
+    });
+
+    if (res.ok) {
+      setStatus("SUCCESS");
+      form.reset();
+      onSuccess();
+    } else {
+      setStatus("ERROR");
+    }
   }
 
   return (
-    <section className="rounded-2xl p-8 bg-gray-900 shadow border border-gray-700 mt-8">
-      <h3 className="text-2xl font-bold text-gold mb-4">Request a Quote</h3>
-      <form onSubmit={submitQuote} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input
-          name="name"
-          placeholder="Full name"
-          value={form.name}
-          onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-gold outline-none"
-          required
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-gold outline-none"
-          required
-        />
-        <input
-          name="phone"
-          placeholder="Phone"
-          value={form.phone}
-          onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-gold outline-none"
-        />
-        <select
-          name="propertyType"
-          value={form.propertyType}
-          onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none"
-        >
-          <option value="home">Home</option>
-          <option value="office">Office</option>
-          <option value="airbnb">Airbnb / Short-term rental</option>
-        </select>
+    <section className="rounded-2xl p-8 bg-gray-900 shadow border border-gray-700 mt-8 max-w-4xl mx-auto">
+      <h3 className="text-3xl font-bold text-yellow-400 mb-4">Request a Quote</h3>
+      <p className="text-gray-300 mb-6">
+        Tell us about your space and needs — we’ll get back to you with a personalized estimate.
+      </p>
 
-        <input
-          name="size"
-          placeholder="Square ft or # rooms"
-          value={form.size}
-          onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-gold outline-none"
-        />
-        <input
-          name="zip"
-          placeholder="ZIP code"
-          value={form.zip}
-          onChange={update}
-          required
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-gold outline-none"
-        />
-        <input
-          name="date"
-          type="date"
-          value={form.date}
-          onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none"
-        />
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input name="name" placeholder="Full Name" required className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100" />
+        <input name="email" type="email" placeholder="Email" required className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100" />
+        <input name="phone" placeholder="Phone Number" required className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100" />
+        <input name="location" placeholder="City / ZIP" className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100" />
         <textarea
-          name="notes"
-          placeholder="Special requests"
-          value={form.notes}
-          onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-gold outline-none md:col-span-2"
-        />
-
-        <div className="md:col-span-2 flex gap-3">
+          name="message"
+          placeholder="Tell us about your cleaning needs..."
+          rows="4"
+          className="md:col-span-2 p-3 bg-gray-800 border border-gray-600 rounded text-gray-100"
+        ></textarea>
+        <div className="md:col-span-2">
           <button
             type="submit"
-            className="px-4 py-3 bg-gold text-black rounded font-semibold hover:bg-gold-dark transition"
+            className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-3 rounded-lg transition"
           >
-            Submit for Quote
-          </button>
-          <button
-            type="button"
-            className="px-4 py-3 border border-gold text-gold rounded hover:bg-gold hover:text-black transition"
-            onClick={() => alert("We will follow up with a custom quote.")}
-          >
-            Need Help?
+            Submit Request
           </button>
         </div>
       </form>
 
-      <p className="mt-6 text-sm text-gray-400">
-        <strong className="text-gold">Quote-first / Pay-later flow:</strong> We provide
-        a custom quote after reviewing the request. Once approved, you’ll receive a
-        Stripe invoice or scheduled payment.
-      </p>
+      {status === "SUCCESS" && <p className="text-green-400 mt-4">✅ Quote request sent successfully!</p>}
+      {status === "ERROR" && <p className="text-red-400 mt-4">❌ Something went wrong. Please try again.</p>}
     </section>
   );
 }
 
-/* --------------------------- CLEANER FORM --------------------------- */
-function CleanerForm({ onSuccess }) {
-  const [form, setForm] = useState({
-    name: "",
-    city: "",
-    state: "",
-    experience: "",
-    phone: "",
-    email: "",
-    references: "",
-  });
+/* --------------------------- CLEANER APPLICATION --------------------------- */
+function CleanerApplicationForm({ onSuccess }) {
+  const [status, setStatus] = useState("");
 
-  function update(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
-  function submitCleaner(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Cleaner application", form);
-    onSuccess();
+    const form = e.target;
+    const data = new FormData(form);
+
+    const res = await fetch("https://formspree.io/f/mqagpegn", { // same endpoint as quote form
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" },
+    });
+
+    if (res.ok) {
+      setStatus("SUCCESS");
+      form.reset();
+      onSuccess();
+    } else {
+      setStatus("ERROR");
+    }
   }
 
   return (
-    <section className="rounded-2xl p-8 bg-gray-900 shadow border border-gray-700 mt-8">
-      <h3 className="text-2xl font-bold text-gold mb-4">Join as a Cleaner</h3>
-      <form onSubmit={submitCleaner} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input name="name" placeholder="Full name" value={form.name} onChange={update}
-          required className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none" />
-        <input name="email" type="email" placeholder="Email" value={form.email}
-          onChange={update} required className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none" />
-        <input name="phone" placeholder="Phone" value={form.phone} onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none" />
-        <input name="city" placeholder="City" value={form.city} onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none" />
-        <input name="state" placeholder="State" value={form.state} onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none" />
-        <input name="experience" placeholder="Years experience / specialties"
-          value={form.experience} onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none" />
-        <textarea name="references" placeholder="References" value={form.references}
-          onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none md:col-span-2" />
-
-        <div className="md:col-span-2 flex gap-3">
-          <button type="submit"
-            className="px-4 py-3 bg-gold text-black rounded font-semibold hover:bg-gold-dark transition">
-            Apply
-          </button>
-          <button type="button"
-            className="px-4 py-3 border border-gold text-gold rounded hover:bg-gold hover:text-black transition"
-            onClick={() => alert("We will email you onboarding steps.")}>
-            Background Check Info
-          </button>
-        </div>
-
-        <p className="text-xs text-gray-500 md:col-span-2 mt-2">
-          We onboard cleaners as independent contractors (1099). You’ll receive a welcome
-          packet and payment setup link when accepted.
-        </p>
-      </form>
-    </section>
-  );
-}
-
-/* --------------------------- ABOUT --------------------------- */
-function About() {
-  return (
-    <section className="rounded-2xl p-8 bg-gray-900 shadow border border-gray-700 mt-8">
-      <h3 className="text-2xl font-bold text-gold mb-4">About Nationwide Shine</h3>
-      <p className="text-gray-300">
-        Nationwide Shine delivers luxury cleaning standards in every city. Our teams
-        follow a strict quality checklist and use vetted eco-friendly supplies.
+    <section className="rounded-2xl p-8 bg-gray-900 shadow border border-gray-700 mt-8 max-w-4xl mx-auto">
+      <h3 className="text-3xl font-bold text-yellow-400 mb-4">Join the Nationwide Shine Team</h3>
+      <p className="text-gray-300 mb-6">
+        We’re seeking detail-oriented, professional cleaners who take pride in creating spotless spaces.
       </p>
 
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Stat title="Vetted Cleaners" value="1000 +" />
-        <Stat title="Cities Served" value="Nationwide" />
-        <Stat title="Satisfaction" value="99 %" />
-      </div>
-    </section>
-  );
-}
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input name="fullName" placeholder="Full Name" required className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100" />
+        <input name="email" type="email" placeholder="Email" required className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100" />
+        <input name="phone" placeholder="Phone Number" required className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100" />
+        <input name="city" placeholder="City / ZIP" required className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100" />
+        <select name="experience" className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100" required>
+          <option value="">Experience Level</option>
+          <option>0-1 years</option>
+          <option>2-4 years</option>
+          <option>5+ years</option>
+        </select>
+        <input name="availability" placeholder="Days Available (e.g. Mon-Fri)" className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100" />
+        <textarea
+          name="message"
+          placeholder="Tell us why you’d be a great fit..."
+          rows="4"
+          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 md:col-span-2"
+        ></textarea>
 
-/* --------------------------- CONTACT --------------------------- */
-function Contact() {
-  const [msg, setMsg] = useState({ name: "", email: "", message: "" });
-
-  function update(e) {
-    setMsg({ ...msg, [e.target.name]: e.target.value });
-  }
-  function submit(e) {
-    e.preventDefault();
-    alert("Thanks — we’ll respond within 1 business day.");
-  }
-
-  return (
-    <section className="rounded-2xl p-8 bg-gray-900 shadow border border-gray-700 mt-8">
-      <h3 className="text-2xl font-bold text-gold mb-4">Contact Us</h3>
-      <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input name="name" placeholder="Name" onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none" />
-        <input name="email" placeholder="Email" onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 focus:ring-2 focus:ring-gold outline-none" />
-        <textarea name="message" placeholder="Message" onChange={update}
-          className="p-3 bg-gray-800 border border-gray-600 rounded text-gray-100 md:col-span-2 focus:ring-2 focus:ring-gold outline-none" />
         <div className="md:col-span-2">
-          <button className="px-4 py-3 bg-gold text-black rounded font-semibold hover:bg-gold-dark transition">
-            Send
+          <button
+            type="submit"
+            className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-3 rounded-lg transition"
+          >
+            Submit Application
           </button>
         </div>
       </form>
 
-      <p className="mt-6 text-sm text-gray-400">
-        HQ : Virtual — Serving clients nationwide. For urgent requests, email 
-        <span className="text-gold"> ops@nationwideshine.com</span>
-      </p>
+      {status === "SUCCESS" && <p className="text-green-400 mt-4">✅ Application sent successfully!</p>}
+      {status === "ERROR" && <p className="text-red-400 mt-4">❌ Something went wrong. Please try again.</p>}
     </section>
   );
 }
 
-/* --------------------------- THANK YOU --------------------------- */
-function ThankYou() {
-  return (
-    <section className="rounded-2xl p-8 bg-gray-900 shadow border border-gray-700 text-center mt-8">
-      <h3 className="text-2xl font-bold text-gold">
-        Thanks — we’ve received your quote request!
-      </h3>
-      <p className="text-gray-400 mt-3">
-        One of our location managers will review and send your custom quote within 24 hours.
-      </p>
-    </section>
-  );
-}
-
-/* --------------------------- STAT + FOOTER --------------------------- */
-function Stat({ title, value }) {
-  return (
-    <div className="p-4 border border-gray-700 rounded-md text-center bg-gray-800">
-      <div className="text-lg font-bold text-gold">{value}</div>
-      <div className="text-sm text-gray-400">{title}</div>
-    </div>
-  );
-}
-
+/* --------------------------- FOOTER --------------------------- */
 function Footer({ onNavigate }) {
   return (
-    <footer className="mt-16 py-8 border-t border-gray-700 text-gray-400 text-sm bg-black/70 backdrop-blur">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-6">
-        <div>
-          © {new Date().getFullYear()}{" "}
-          <span className="text-gold font-semibold">Nationwide Shine</span> — Luxury
-          Cleaning. Local Hands.
-        </div>
-        <div className="flex gap-4">
-          <button onClick={() => onNavigate("about")} className="hover:text-gold">
-            About
-          </button>
-          <button onClick={() => onNavigate("contact")} className="hover:text-gold">
-            Contact
-          </button>
-          <a href="#" className="hover:text-gold">
-            Privacy
-          </a>
-        </div>
+    <footer className="bg-black/90 text-gray-400 py-6 mt-16 text-center">
+      <div className="space-x-6">
+        <button onClick={() => onNavigate("about")} className="hover:text-yellow-400">About</button>
+        <button onClick={() => onNavigate("quote")} className="hover:text-yellow-400">Quote</button>
+        <button onClick={() => onNavigate("apply")} className="hover:text-yellow-400">Join Our Team</button>
       </div>
+      <p className="mt-4 text-sm text-gray-500">
+        © {new Date().getFullYear()} Nationwide Shine — Luxury Cleaning. Local Hands.
+      </p>
     </footer>
+  );
+}
+
+/* --------------------------- MAIN APP --------------------------- */
+export default function NationwideShineApp() {
+  const [route, setRoute] = useState("home");
+
+  return (
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-black via-gray-900 to-gray-800 text-gray-100">
+      <Header onNavigate={setRoute} />
+
+      <main className="flex-grow">
+        {route === "home" && <Hero onNavigate={setRoute} />}
+        {route === "quote" && <QuoteForm onSuccess={() => setRoute("thankyou")} />}
+        {route === "apply" && <CleanerApplicationForm onSuccess={() => setRoute("thankyou")} />}
+        {route === "thankyou" && (
+          <section className="text-center py-24">
+            <h2 className="text-4xl font-bold text-yellow-400 mb-4">Thank You!</h2>
+            <p className="text-gray-300 mb-6">We’ll get back to you shortly.</p>
+            <button
+              onClick={() => setRoute("home")}
+              className="bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg font-semibold"
+            >
+              Back to Home
+            </button>
+          </section>
+        )}
+      </main>
+
+      <Footer onNavigate={setRoute} />
+    </div>
   );
 }

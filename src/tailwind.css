@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom global styles */
+body {
+  @apply bg-gradient-to-b from-black via-gray-900 to-gray-800 text-gray-100 font-sans;
+}
+
+/* Accent colors for hover and focus */
+button, a {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Utility classes */
+.text-gold {
+  color: #FFD700;
+}
+
+.bg-gold {
+  background-color: #FFD700;
+}
+
+.border-gold {
+  border-color: #FFD700;
+}
+
+/* Shadows for luxury effect */
+.shadow-lux {
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.25);
+}
